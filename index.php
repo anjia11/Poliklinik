@@ -50,7 +50,7 @@ include_once("koneksi.php");
                 ?>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="Logout.php">Logout (<?php echo $_SESSION['username'] ?>)</a>
+                            <a class="nav-link" href="Logout.php">Logout (<?php echo $_SESSION['name'] ?>)</a>
                         </li>
                     </ul>
                 <?php
@@ -96,7 +96,7 @@ include_once("koneksi.php");
 
                 if (isset($_SESSION['username'])) {
                     //jika sudah login tampilkan username
-                    echo ", " . $_SESSION['username'] . "</h2><hr>";
+                    echo ", " . $_SESSION['name'] . "</h2><hr>";
                 } else {
                     echo "</h2><hr>Silakan Login untuk menggunakan sistem. Jika belum memiliki akun silakan Register terlebih dahulu.";
                 }

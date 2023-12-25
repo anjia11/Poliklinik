@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
             $_SESSION['username'] = $username;
+            $_SESSION['name'] = $row['nama'];
             $_SESSION['role'] = "admin";
             header("Location: index.php");
         } else {
@@ -51,11 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <label for="username">Username</label>
                             <input type="text" name="username" class="form-control" required placeholder="Masukkan nama anda">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-1">
                             <label for="password">Password</label>
                             <input type="password" name="password" class="form-control" required placeholder="Masukkan password anda">
                         </div>
-                        <div class="text-center">
+                        <div class="text-center mt-3">
                             <button type="submit" class="btn btn-primary btn-block">Login</button>
                         </div>
                     </form>

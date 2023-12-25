@@ -45,78 +45,84 @@ if (isset($_GET['aksi'])) {
 <h2>Riwayat Pasien</h2>
 <br>
 <div class="container">
-    <!--Form Input Data-->
+    <?php
+    if (isset($_GET["id"])) {
+    ?>
+        <!--Form Input Data-->
 
-    <form class="form row" method="POST" action="" name="myForm" onsubmit="return(validate());">
-        <!-- Kode php untuk menghubungkan form dengan database -->
-        <?php
-        $nama_pasien = '';
-        $alamat = '';
-        $no_ktp = '';
-        $no_hp = '';
-        $no_rm = '';
-        if (isset($_GET['id'])) {
-            $ambil = mysqli_query($mysqli, "SELECT * FROM pasien 
-                    WHERE id='" . $_GET['id'] . "'");
-            while ($row = mysqli_fetch_array($ambil)) {
-                $nama_pasien = $row['nama'];
-                $alamat = $row['alamat'];
-                $no_ktp = $row['no_ktp'];
-                $no_hp = $row['no_hp'];
-                $no_rm = $row['no_rm'];
+        <form class="form row" method="POST" action="" name="myForm" onsubmit="return(validate());">
+            <!-- Kode php untuk menghubungkan form dengan database -->
+            <?php
+            $nama_pasien = '';
+            $alamat = '';
+            $no_ktp = '';
+            $no_hp = '';
+            $no_rm = '';
+            if (isset($_GET['id'])) {
+                $ambil = mysqli_query($mysqli, "SELECT * FROM pasien 
+                        WHERE id='" . $_GET['id'] . "'");
+                while ($row = mysqli_fetch_array($ambil)) {
+                    $nama_pasien = $row['nama'];
+                    $alamat = $row['alamat'];
+                    $no_ktp = $row['no_ktp'];
+                    $no_hp = $row['no_hp'];
+                    $no_rm = $row['no_rm'];
+                }
+            ?>
+                <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
+            <?php
             }
-        ?>
-            <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
-        <?php
-        }
-        ?>
-        <div class="row">
-            <label for="inputNama" class="form-label fw-bold">
-                Nama
-            </label>
-            <div>
-                <input type="text" class="form-control" name="nama" id="inputNama" placeholder="Nama" value="<?php echo $nama_pasien ?>">
+            ?>
+            <div class="row">
+                <label for="inputNama" class="form-label fw-bold">
+                    Nama
+                </label>
+                <div>
+                    <input type="text" class="form-control" name="nama" id="inputNama" placeholder="Nama" value="<?php echo $nama_pasien ?>">
+                </div>
             </div>
-        </div>
-        <div class="row mt-1">
-            <label for="inputAlamat" class="form-label fw-bold">
-                Alamat
-            </label>
-            <div>
-                <input type="text" class="form-control" name="alamat" id="inputAlamat" placeholder="alamat" value="<?php echo $alamat ?>">
+            <div class="row mt-1">
+                <label for="inputAlamat" class="form-label fw-bold">
+                    Alamat
+                </label>
+                <div>
+                    <input type="text" class="form-control" name="alamat" id="inputAlamat" placeholder="alamat" value="<?php echo $alamat ?>">
+                </div>
             </div>
-        </div>
-        <div class="row mt-1">
-            <label for="inputNoKtp" class="form-label fw-bold">
-                No KTP
-            </label>
-            <div>
-                <input type="text" class="form-control" name="no_ktp" id="inputNoKtp" placeholder="No KTP" value="<?php echo $no_ktp ?>">
-            </div>
+            <div class="row mt-1">
+                <label for="inputNoKtp" class="form-label fw-bold">
+                    No KTP
+                </label>
+                <div>
+                    <input type="text" class="form-control" name="no_ktp" id="inputNoKtp" placeholder="No KTP" value="<?php echo $no_ktp ?>">
+                </div>
 
-        </div>
-        <div class="row mt-1">
-            <label for="inputNoHp" class="form-label fw-bold">
-                No HP
-            </label>
-            <div>
-                <input type="text" class="form-control" name="no_hp" id="inputNoHp" placeholder="No KTP" value="<?php echo $no_hp ?>">
             </div>
-        </div>
-        <div class="row mt-1">
-            <label for="inputNoRm" class="form-label fw-bold">
-                No RM
-            </label>
-            <div>
-                <input type="text" class="form-control" name="no_rm" id="inputNoRm" placeholder="No RM" value="<?php echo $no_rm ?>">
+            <div class="row mt-1">
+                <label for="inputNoHp" class="form-label fw-bold">
+                    No HP
+                </label>
+                <div>
+                    <input type="text" class="form-control" name="no_hp" id="inputNoHp" placeholder="No KTP" value="<?php echo $no_hp ?>">
+                </div>
             </div>
-        </div>
-        <div class="row mt-3">
-            <div class=col>
-                <button type="submit" class="btn btn-primary rounded-pill px-3 mt-auto" name="simpan">Simpan</button>
+            <div class="row mt-1">
+                <label for="inputNoRm" class="form-label fw-bold">
+                    No RM
+                </label>
+                <div>
+                    <input type="text" class="form-control" name="no_rm" id="inputNoRm" placeholder="No RM" value="<?php echo $no_rm ?>">
+                </div>
             </div>
-        </div>
-    </form>
+            <div class="row mt-3">
+                <div class=col>
+                    <button type="submit" class="btn btn-primary rounded-pill px-3 mt-auto" name="simpan">Simpan</button>
+                </div>
+            </div>
+        </form>
+    <?php
+        }
+    ?>
     <br>
     <br>
     <!-- Table-->
