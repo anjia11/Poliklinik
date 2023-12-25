@@ -1,7 +1,7 @@
 <?php
 session_start();
 $role = "";
-if (isset($_SESSION['username']) && isset($_SESSION['role'])) {
+if (isset($_SESSION['role'])) {
     $role = $_SESSION['role'];
     // Hapus session
     session_unset();

@@ -26,14 +26,11 @@ include_once("koneksi.php");
                     <a class="nav-link" aria-current="page" href="indexDokter.php">Home</a>
                 </li>
                 <?php 
-                    if (isset($_SESSION['username'])){
+                    if (isset($_SESSION['role'])){
                 ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Data Master</a>
                     <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" href="indexDokter.php?page=obat">Obat</a>
-                        </li>
                         <li>
                             <a class="dropdown-item" href="indexDokter.php?page=periksa">Periksa</a>
                         </li>
@@ -48,12 +45,12 @@ include_once("koneksi.php");
             </ul>
 
             <?php
-                if (isset($_SESSION['username'])) {
+                if (isset($_SESSION['role'])) {
                     // Jika pengguna sudah login, tampilkan tombol "Logout"
                 ?>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="Logout.php">Logout (<?php echo $_SESSION['username'] ?>)</a>
+                            <a class="nav-link" href="Logout.php">Logout (<?php echo $_SESSION['name'] ?>)</a>
                         </li>
                     </ul>
                 <?php
@@ -94,9 +91,9 @@ include_once("koneksi.php");
             } else {
                 echo "<br><h2>Selamat Datang di Sistem Informasi Poliklinik";
 
-                if (isset($_SESSION['username'])) {
+                if (isset($_SESSION['role'])) {
                     //jika sudah login tampilkan username
-                    echo ", " . $_SESSION['username'] . "</h2><hr>";
+                    echo ", " . $_SESSION['name'] . "</h2><hr>";
                 } else {
                     echo "</h2><hr>Silakan Login untuk menggunakan sistem.";
                 }

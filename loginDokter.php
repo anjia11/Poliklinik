@@ -5,10 +5,10 @@ if (!isset($_SESSION)) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
+    $nip = $_POST['nip'];
     $password = $_POST['password'];
 
-    $query = "SELECT * FROM dokter WHERE username = '$username'";
+    $query = "SELECT * FROM dokter WHERE nip = '$nip'";
     $result = $mysqli->query($query);
 
     if (!$result) {
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
-            $_SESSION['username'] = $username;
+            $_SESSION['name'] = $row['nama'];
             $_SESSION['role'] = "dokter";
             header("Location: indexDokter.php");
         } else {
@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         }
                         ?>
                         <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" name="username" class="form-control" required placeholder="Masukkan nama anda">
+                            <label for="nip">NIP</label>
+                            <input type="text" name="nip" class="form-control" required placeholder="Masukkan NIP anda">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>

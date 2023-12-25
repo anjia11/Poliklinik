@@ -46,16 +46,16 @@ if (isset($_GET['aksi'])) {
     <form class="form row" method="POST" action="" name="myForm" onsubmit="return(validate());">
         <!-- Kode php untuk menghubungkan form dengan database -->
         <?php
-        $nama_pasien = '';
-        $alamat = '';
-        $no_hp = '';
+        $nama_obat = '';
+        $kemasan = '';
+        $harga = '';
         if (isset($_GET['id'])) {
             $ambil = mysqli_query($mysqli, "SELECT * FROM obat 
                     WHERE id='" . $_GET['id'] . "'");
             while ($row = mysqli_fetch_array($ambil)) {
-                $nama_pasien = $row['nama_obat'];
-                $alamat = $row['kemasan'];
-                $no_hp = $row['harga'];
+                $nama_obat = $row['nama_obat'];
+                $kemasan = $row['kemasan'];
+                $harga = $row['harga'];
             }
         ?>
             <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
@@ -67,7 +67,7 @@ if (isset($_GET['aksi'])) {
                 Nama
             </label>
             <div>
-                <input type="text" class="form-control" name="nama_obat" id="inputNama" placeholder="Nama" value="<?php echo $nama_pasien ?>">
+                <input type="text" class="form-control" name="nama_obat" id="inputNama" placeholder="Nama" value="<?php echo $nama_obat ?>">
             </div>
         </div>
         <div class="row mt-1">
@@ -75,7 +75,7 @@ if (isset($_GET['aksi'])) {
                 Kemasan
             </label>
             <div>
-                <input type="text" class="form-control" name="kemasan" id="inputKemasan" placeholder="Kemasan" value="<?php echo $alamat ?>">
+                <input type="text" class="form-control" name="kemasan" id="inputKemasan" placeholder="Kemasan" value="<?php echo $kemasan ?>">
             </div>
         </div>
         <div class="row mt-1">
@@ -83,7 +83,7 @@ if (isset($_GET['aksi'])) {
                 Harga
             </label>
             <div>
-                <input type="text" class="form-control" name="harga" id="inputHarga" placeholder="Harga" value="<?php echo $no_hp ?>">
+                <input type="text" class="form-control" name="harga" id="inputHarga" placeholder="Harga" value="<?php echo $harga ?>">
             </div>
 
         </div>

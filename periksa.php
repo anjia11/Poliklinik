@@ -2,7 +2,7 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['role'])) {
     // Jika pengguna sudah login, tampilkan tombol "Logout"
     header("Location: indexDokter.php?page=loginDokter");
     exit;
