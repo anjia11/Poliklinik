@@ -164,6 +164,7 @@ if (isset($_POST['simpan'])) {
                 <th scope="col">Tanggal Periksa</th>
                 <th scope="col">Keluhan</th>
                 <th scope="col">Catatan</th>
+                <th scope="col">Obat</th>
                 <th scope="col">Biaya Periksa</th>
                 <th scope="col">Aksi</th>
             </tr>
