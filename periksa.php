@@ -12,7 +12,8 @@ if (isset($_POST['simpan'])) {
     if (isset($_POST['id'])) {
         $ubah = mysqli_query($mysqli, "UPDATE periksa SET
                                             tgl_periksa = '" . $_POST['tgl_periksa'] . "',
-                                            catatan = '" . $_POST['catatan'] . "'
+                                            catatan = '" . $_POST['catatan'] . "',
+                                            biaya_periksa = '" . $_POST['total_biaya_periksa'] . "'
                                             WHERE
                                             id = '" . $_POST['id'] . "'");
         $ubah = mysqli_query($mysqli, "UPDATE detail_periksa SET
@@ -36,6 +37,8 @@ if (isset($_POST['simpan'])) {
             <form class="form row" method="POST" action="" name="myForm" onsubmit="return(validate());">
                 <!-- Kode php untuk menghubungkan form dengan database -->
                 <?php
+                $biaya_default = 150000;
+                $harga_obat;
                 $nama_pasien = '';
                 $nama_dokter = '';
                 $tgl_periksa;
@@ -44,9 +47,7 @@ if (isset($_POST['simpan'])) {
                 $id_obat = '';
                 $biaya_periksa = '';
                 if (isset($_GET['id'])) {
-                    // $ambil = mysqli_query($mysqli, "SELECT * FROM pasien 
-                    //         WHERE id='" . $_GET['id'] . "'");
-                    $ambil = mysqli_query($mysqli, "SELECT pr.*, dp.keluhan, ps.nama as nama_pasien, dk.nama as nama_dokter, dep.id_obat, o.nama_obat
+                    $ambil = mysqli_query($mysqli, "SELECT pr.*, dp.keluhan, ps.nama as nama_pasien, dk.nama as nama_dokter, dep.id_obat, o.nama_obat, o.harga
                                                         FROM periksa AS pr
                                                             JOIN daftar_poli AS dp ON pr.id_daftar_poli = dp.id
                                                             JOIN pasien AS ps ON dp.id_pasien = ps.id
@@ -57,6 +58,7 @@ if (isset($_POST['simpan'])) {
                                                             WHERE pr.id = '" . $_GET['id'] . "'"
                                                         );
                     while ($row = mysqli_fetch_array($ambil)) {
+                        $harga_obat = $row["harga"];
                         $nama_pasien = $row['nama_pasien'];
                         $nama_dokter = $row['nama_dokter'];
                         $tgl_periksa = $row['tgl_periksa'];
@@ -120,7 +122,6 @@ if (isset($_POST['simpan'])) {
                         <option value="<?php echo $id_obat?>"><?php echo $nama_obat?></option>
                         <?php
                             $ambilObat = mysqli_query($mysqli, "SELECT * FROM obat");
-                            
                             while ($row = mysqli_fetch_array($ambilObat)) {
                                 echo "<option value='" . $row["id"] . "'>" . $row["nama_obat"] . "</option>";
                             }
@@ -133,7 +134,12 @@ if (isset($_POST['simpan'])) {
                         Biaya Periksa
                     </label>
                     <div>
-                        <input type="text" readonly class="form-control" name="biaya_periksa" id="biaya" placeholder="Biaya Periksa" value="<?php echo $biaya_periksa ?>">
+                        <?php
+                        
+                        $biaya_periksa = $biaya_default + $harga_obat;
+                        
+                        ?>
+                        <input type="text" readonly class="form-control" name="total_biaya_periksa" id="biaya" placeholder="Biaya Periksa" value="<?php echo $biaya_periksa ?>">
                     </div>
                 </div>
                 <div class="row mt-3">
