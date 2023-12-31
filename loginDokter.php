@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
             $_SESSION['name'] = $row['nama'];
+            $_SESSION['id_dokter'] = $row['id'];
             $_SESSION['role'] = "dokter";
             header("Location: index.php");
         } else {

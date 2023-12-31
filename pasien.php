@@ -37,6 +37,9 @@ if (!isset($_SESSION['role'])) {
                                                 JOIN periksa AS pr ON dp.id = pr.id_daftar_poli
                                                 JOIN detail_periksa AS dep ON pr.id = dep.id_periksa
                                                 JOIN obat AS o ON dep.id_obat = o.id
+                                                JOIN jadwal_periksa AS jp ON dp.id_jadwal = jp.id
+                                                JOIN dokter AS dok ON jp.id_dokter = dok.id
+                                                WHERE jp.id_dokter IN (SELECT id FROM dokter WHERE id =  '".$_SESSION['id_dokter']."')
                                             ");
             $no = 1;
             while ($data = mysqli_fetch_array($result)) {
