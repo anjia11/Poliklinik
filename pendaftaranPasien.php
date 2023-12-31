@@ -92,9 +92,6 @@
                             <button type="submit" class="btn btn-primary btn-block">Register</button>
                         </div>
                     </form>
-                    <div class="text-center">
-                        <p class="mt-3">Sudah Pernah Daftar? <a href="index.php?page=loginUser">Login</a></p>
-                    </div>
                 </div>
             </div>
         </div>
