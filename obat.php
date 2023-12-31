@@ -67,7 +67,7 @@ if (isset($_GET['aksi'])) {
                 Nama
             </label>
             <div>
-                <input type="text" class="form-control" name="nama_obat" id="inputNama" placeholder="Nama" value="<?php echo $nama_obat ?>">
+                <input type="text" class="form-control" name="nama_obat" id="inputNama" required placeholder="Nama" value="<?php echo $nama_obat ?>">
             </div>
         </div>
         <div class="row mt-1">
@@ -75,7 +75,7 @@ if (isset($_GET['aksi'])) {
                 Kemasan
             </label>
             <div>
-                <input type="text" class="form-control" name="kemasan" id="inputKemasan" placeholder="Kemasan" value="<?php echo $kemasan ?>">
+                <input type="text" class="form-control" name="kemasan" id="inputKemasan" required placeholder="Kemasan" value="<?php echo $kemasan ?>">
             </div>
         </div>
         <div class="row mt-1">
@@ -83,7 +83,7 @@ if (isset($_GET['aksi'])) {
                 Harga
             </label>
             <div>
-                <input type="text" class="form-control" name="harga" id="inputHarga" placeholder="Harga" value="<?php echo $harga ?>">
+                <input type="text" class="form-control" name="harga" id="inputHarga" required placeholder="Harga" value="<?php echo $harga ?>">
             </div>
 
         </div>

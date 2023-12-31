@@ -63,7 +63,7 @@ if (isset($_GET['aksi'])) {
                 Nama Poli
             </label>
             <div>
-                <input type="text" class="form-control" name="nama_poli" id="inputPoli" placeholder="Nama Poli" value="<?php echo $nama_poli ?>">
+                <input type="text" class="form-control" name="nama_poli" id="inputPoli" required placeholder="Nama Poli" value="<?php echo $nama_poli ?>">
             </div>
         </div>
         <div class="row mt-1">
@@ -71,7 +71,7 @@ if (isset($_GET['aksi'])) {
                 Keterangan
             </label>
             <div>
-                <input type="text" class="form-control" name="keterangan" id="inputKeterangan" placeholder="Keterangan" value="<?php echo $keterangan ?>">
+                <input type="text" class="form-control" name="keterangan" id="inputKeterangan" required placeholder="Keterangan" value="<?php echo $keterangan ?>">
             </div>
         </div>
         <div class="row mt-3">

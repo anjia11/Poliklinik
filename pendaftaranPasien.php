@@ -9,16 +9,16 @@
         $no_ktp = $_POST['no_ktp'];
         $no_hp = $_POST['no_hp'];
 
-        $query = "SELECT * FROM pasien WHERE nama = '$nama_pasien' AND no_ktp = '$no_ktp'";
-        $result = $mysqli->query($query);
+        $query_cek = "SELECT * FROM pasien WHERE no_ktp = '$no_ktp'";
+        $result = $mysqli->query($query_cek);
 
         if ($result === false) {
             die("Query error: " . $mysqli->error);
         }
 
         if ($result->num_rows == 0) {
-            $query = "SELECT COUNT(id) AS jumlah_pasien FROM pasien";
-            $data = mysqli_fetch_assoc(mysqli_query($mysqli, $query));
+            $query_ambil_jumlah_pasien = "SELECT COUNT(id) AS jumlah_pasien FROM pasien";
+            $data = mysqli_fetch_assoc(mysqli_query($mysqli, $query_ambil_jumlah_pasien));
             $jumlah_pasien = $data["jumlah_pasien"]+1;
             $set_jumlah_pasien = '';
             if ($jumlah_pasien < 10){
@@ -34,7 +34,9 @@
 
             $insert_query = "INSERT INTO pasien (nama, alamat, no_ktp, no_hp, no_rm) VALUES ('$nama_pasien', '$alamat', '$no_ktp', '$no_hp', '$no_rm')";
             if (mysqli_query($mysqli, $insert_query)) {
+                $_SESSION['id_pasien'] = mysqli_insert_id($mysqli);
                 $_SESSION['name'] = $nama_pasien;
+                $_SESSION['no_rm'] = $no_rm;
                 $_SESSION['role'] = "pasien";
                 echo "<script>
                 alert('Pendaftaran Berhasil'); 
@@ -44,7 +46,12 @@
                 $error = "Pendaftaran gagal";
             }
         } else {
-            $error = "Username sudah digunakan";
+            $row = $result->fetch_assoc();
+            $_SESSION['id_pasien'] = $row['id'];
+            $_SESSION['name'] = $row['nama'];
+            $_SESSION['no_rm'] = $row['no_rm'];
+            $_SESSION['role'] = "pasien";
+            header("Location: index.php");
         }
     }
     

@@ -11,6 +11,12 @@ if (!isset($_SESSION['username'])) {
 
 
 if (isset($_POST['simpan'])) {
+    if ($_POST['id_poli'] == '999') {
+        echo'
+            <script>alert("Poli Tidak Boleh Kosong")</script>
+        ';
+        echo'meta http-equiv="refresh" content="0>';
+    }
     $password = $_POST['password'];
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     if (isset($_POST['id'])) {
@@ -127,11 +133,11 @@ if (isset($_GET['aksi'])) {
                 Nama Poli
             </label>
             <div>
-                <select class="form-select" aria-label="Default select example" name="id_poli" id ="id_poli">
+                <select class="form-select" aria-label="Default select example" name="id_poli" id ="id_poli" required>
                     <?php
                     if (!isset($_GET['id'])) {
                     ?>
-                    <option selected>Pilih Poli</option>
+                    <option value="999" selected>Pilih Poli</option>
                     <?php
                     }
                     else{

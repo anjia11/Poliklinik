@@ -8,44 +8,56 @@ if (!isset($_SESSION['role'])) {
     exit;
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $biaya_default = 150000;
-    $tgl_periksa = $_POST['tgl_periksa'];
-    $catatan = $_POST['catatan'];
-
-    $harga_obat;
-    $ambilHarga = mysqli_query($mysqli, "SELECT * FROM obat WHERE id = '" . $_POST['new_id_obat'] . "'");
-    $data = mysqli_fetch_array($ambilHarga);
-    $harga_obat = $data['harga'];
-    $biaya_periksa = $biaya_default + $harga_obat;
-
-    $id_dapol = $_POST['id'];
-    $id_obat = $_POST['new_id_obat'];
+    $idpasien = isset($_GET['id']) ? $_GET['id'] : null;
     if (isset($_POST['simpan'])) {
-        if (isset($_POST['id'])) {
-            $ubah = mysqli_query($mysqli, "INSERT INTO periksa(id_daftar_poli, tgl_periksa, catatan, biaya_periksa) VALUES ('$id_dapol', '$tgl_periksa', '$catatan', '$biaya_periksa')");
-                                                
+        if ($_POST['new_id_obat'] == '999') {
+            echo'
+                <script>alert("Obat Tidak Boleh Kosong")</script>
+            ';
+            echo"<script>
+                document.location='index.php?page=periksa&id=$idpasien&dpid=$id_dapol';
+            </script>";
+        }else{
+            $biaya_default = 150000;
+            $tgl_periksa = $_POST['tgl_periksa'];
+            $catatan = $_POST['catatan'];
+
+            $harga_obat;
+            $ambilHarga = mysqli_query($mysqli, "SELECT * FROM obat WHERE id = '" . $_POST['new_id_obat'] . "'");
+            $data = mysqli_fetch_array($ambilHarga);
+            $harga_obat = $data['harga'];
+            $biaya_periksa = $biaya_default + $harga_obat;
+
+            $id_dapol = $_GET['dpid'];
+            $id_obat = $_POST['new_id_obat'];
+            if (isset($_GET['id'])) {
+                $ubah = mysqli_query($mysqli, "INSERT INTO periksa(id_daftar_poli, tgl_periksa, catatan, biaya_periksa) VALUES ('$id_dapol', '$tgl_periksa', '$catatan', '$biaya_periksa')");
+                                                    
+            }
+            echo "<script>
+                        document.location='index.php?page=periksa&dpid=$id_dapol&id_obat=$id_obat&aksi=update';
+                        </script>";
+    
+            if (isset($_GET['aksi'])) {
+                if ($_GET['aksi'] == 'update') {
+                    $id_dapol = $_GET['dpid'];
+                    $id_obat = $_GET['id_obat'];
+                    $id_periksa = mysqli_query($mysqli, "SELECT * FROM periksa WHERE id_daftar_poli = '$id_dapol'");
+                    $data = mysqli_fetch_array($id_periksa);
+                    $id_periksa = $data['id'];
+                    $simpan = mysqli_query($mysqli, "INSERT INTO detail_periksa(id_periksa, id_obat) VALUES ('$id_periksa', '$id_obat')");
+                }
+            
+                echo "<script> 
+                            document.location='index.php?page=periksa';
+                            </script>";
+            }
         }
-        echo "<script>
-                    document.location='index.php?page=periksa&id=$id_dapol&id_obat=$id_obat&aksi=update';
-                    </script>";
+        
     }
     
 }
 
-if (isset($_GET['aksi'])) {
-    if ($_GET['aksi'] == 'update') {
-        $id_dapol = $_GET['id'];
-        $id_obat = $_GET['id_obat'];
-        $id_periksa = mysqli_query($mysqli, "SELECT * FROM periksa WHERE id_daftar_poli = '$id_dapol'");
-        $data = mysqli_fetch_array($id_periksa);
-        $id_periksa = $data['id'];
-        $simpan = mysqli_query($mysqli, "INSERT INTO detail_periksa(id_periksa, id_obat) VALUES ('$id_periksa', '$id_obat')");
-    }
-
-    echo "<script> 
-                document.location='index.php?page=periksa';
-                </script>";
-}
 ?>
 <h2>Periksa Pasien</h2>
 <br>
@@ -84,7 +96,7 @@ if (isset($_GET['aksi'])) {
                         Tanggal Periksa
                     </label>
                     <div>
-                        <input type="datetime-local" class="form-control" name="tgl_periksa" id="inputJadwal" placeholder="Tanggal Periksa">
+                        <input type="datetime-local" class="form-control" name="tgl_periksa" id="inputJadwal" required placeholder="Tanggal Periksa">
                     </div>
                 </div>
                 <div class="row mt-1">
@@ -92,7 +104,7 @@ if (isset($_GET['aksi'])) {
                         Catatan
                     </label>
                     <div>
-                        <input type="text" class="form-control" name="catatan" id="inputCatatan" placeholder="Catatan">
+                        <input type="text" class="form-control" name="catatan" id="inputCatatan" required placeholder="Catatan">
                     </div>
                 </div>
                 <div class="row mt-1">
@@ -101,6 +113,7 @@ if (isset($_GET['aksi'])) {
                 </label>
                 <div>
                     <select class="form-select" aria-label="Default select example" name="new_id_obat" id ="inputObat">
+                        <option value="999" selected>Pilih Obat</option>
                         <?php
                             $ambilObat = mysqli_query($mysqli, "SELECT * FROM obat");
                             while ($row = mysqli_fetch_array($ambilObat)) {
@@ -136,7 +149,7 @@ if (isset($_GET['aksi'])) {
         <tbody>
             <!-- Kode PHP untuk menampilkan semua isi dari tabel urut-->
             <?php
-            $result = mysqli_query($mysqli, "SELECT ps.id, ps.nama AS nama_pasien, dp.keluhan, dp.no_antrian
+            $result = mysqli_query($mysqli, "SELECT ps.id, ps.nama AS nama_pasien, dp.id AS dpid, dp.keluhan, dp.no_antrian
                                                 FROM daftar_poli AS dp
                                                     JOIN pasien AS ps ON ps.id = dp.id_pasien
                                                 ORDER BY dp.no_antrian ASC"
@@ -148,7 +161,7 @@ if (isset($_GET['aksi'])) {
                     <td><?php echo $data['nama_pasien'] ?></td>
                     <td><?php echo $data['keluhan'] ?></td>
                     <td>
-                        <a class="btn btn-success rounded-pill px-3" href="index.php?page=periksa&id=<?php echo $data['id'] ?>">Periksa</a>
+                        <a class="btn btn-success rounded-pill px-3" href="index.php?page=periksa&id=<?php echo $data['id'] ?>&dpid=<?php echo $data['dpid'] ?>">Periksa</a>
                     </td>
                 </tr>
             <?php
