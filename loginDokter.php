@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (password_verify($password, $row['password'])) {
             $_SESSION['name'] = $row['nama'];
             $_SESSION['role'] = "dokter";
-            header("Location: indexDokter.php");
+            header("Location: index.php");
         } else {
             $error = "Password salah";
         }
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="card">
                 <div class="card-header text-center" style="font-weight: bold; font-size: 32px;">Login</div>
                 <div class="card-body">
-                    <form method="POST" action="indexDokter.php?page=loginDokter">
+                    <form method="POST" action="index.php?page=loginDokter">
                         <?php
                         if (isset($error)) {
                             echo '<div class="alert alert-danger">' . $error . '

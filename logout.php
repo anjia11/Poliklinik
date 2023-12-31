@@ -10,9 +10,9 @@ if (isset($_SESSION['role'])) {
 if ($role == 'admin') {
     header("Location: index.php?page=loginUser");
 } elseif ($role == 'dokter') {
-    header("Location: indexDokter.php?page=loginDokter");
+    header("Location: index.php?page=loginDokter");
 } else {
-    header("Location: index.php?page=loginUser");
+    header("Location: index.php?page=pendaftaranPasien");
 }
 exit();
 ?>

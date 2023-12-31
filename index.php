@@ -25,30 +25,67 @@ include_once("koneksi.php");
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="index.php">Home</a>
                 </li>
-                <?php 
-                    if (isset($_SESSION['username'])){
+                <?php
+                    if (!isset($_SESSION["role"])) {
                 ?>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Data Master</a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" href="index.php?page=obat">Obat</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="index.php?page=dokter">Dokter</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="index.php?page=poli">Poli</a>
-                        </li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="index.php?page=pendaftaranPasien">Daftar Pasien</a>
                 </li>
                 <?php
-                }
+                    }
+                ?>
+                <?php
+                    if (isset($_SESSION['role'])){
+                        $role = $_SESSION['role'];
+                        if($role == "admin"){
+
+                        
+                ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Data Master</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="index.php?page=obat">Obat</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="index.php?page=dokter">Dokter</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="index.php?page=poli">Poli</a>
+                                </li>
+                            </ul>
+                        </li>
+                <?php
+                        }
+            
+                        if ($role == "dokter"){
+                        ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Data Master</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="index.php?page=periksa">Periksa</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="index.php?page=pasien">Riwayat Pasien</a>
+                                </li>
+                            </ul>
+                        </li>
+                <?php
+                        }
+                        if ($role == "pasien"){
+                        ?>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="daftarPoli.php">Daftar Poli</a>
+                        </li>
+                <?php
+                        }
+                    }
                 ?>
             </ul>
 
             <?php
-                if (isset($_SESSION['username'])) {
+                if (isset($_SESSION['role'])) {
                     // Jika pengguna sudah login, tampilkan tombol "Logout"
                 ?>
                     <ul class="navbar-nav ms-auto">
@@ -60,44 +97,35 @@ include_once("koneksi.php");
                 } else {
                     // Jika pengguna belum login, tampilkan tombol "Login" dan "Register"
                 ?>
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=registerUser">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=loginUser">Login</a>
-                        </li>
-                    </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Login</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="index.php?page=loginUser">Admin</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="index.php?page=loginDokter">Dokter</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
                 <?php
                 }
             ?>
-
-            <!-- <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=registerUser">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=loginUser">Login</a>
-                </li>
-            </ul> -->
 
         </div>
     </div>
     </nav>
     <main role="main" class="container">
         <?php
-            // if (isset($_GET['page'])) {
-            //     include($_GET['page'] . ".php");
-            // } else {
-            //     echo "<br><h2>Selamat Datang di Sistem Informasi Poliklinik</h2><hr>Silakan Login untuk menggunakan sistem. Jika belum memiliki akun silakan Register terlebih dahulu.";
-            // }
         
             if (isset($_GET['page'])) {
                 include($_GET['page'] . ".php");
             } else {
                 echo "<br><h2>Selamat Datang di Sistem Informasi Poliklinik";
 
-                if (isset($_SESSION['username'])) {
+                if (isset($_SESSION['role'])) {
                     //jika sudah login tampilkan username
                     echo ", " . $_SESSION['name'] . "</h2><hr>";
                 } else {
