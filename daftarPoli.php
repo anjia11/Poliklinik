@@ -60,7 +60,7 @@ if (isset($_POST['simpan'])) {
                         <div class="form-group mt-1">
                             <label for="jadwalDokter">Jadwal Poli</label>
                             <select class="form-select" aria-label="Disabled select example" name="new_id_jadwal" id="jadwalDokter">
-                                <option selected>Dokter dan Jadwal</option>
+                                <option disabled selected>Dokter dan Jadwal</option>
                                 <?php
                                     $ambilDokter = mysqli_query($mysqli, "SELECT po.*, dk.*, jp.*, jp.id AS jp_id FROM poli AS po 
                                                                             JOIN dokter AS dk ON po.id = dk.id_poli
