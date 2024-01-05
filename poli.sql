@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2023 at 09:43 AM
+-- Generation Time: Jan 05, 2024 at 01:34 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
 
@@ -41,7 +41,16 @@ CREATE TABLE `daftar_poli` (
 
 INSERT INTO `daftar_poli` (`id`, `id_pasien`, `id_jadwal`, `keluhan`, `no_antrian`) VALUES
 (1, 1, 3, 'Sakit Hati', 1),
-(2, 3, 4, 'Sakit perut', 2);
+(2, 3, 4, 'Sakit perut', 2),
+(5, 9, 9, 'Bau Bawang', 3),
+(6, 16, 9, 'Bau bawang akut', 4),
+(7, 14, 3, 'flu', 5),
+(8, 9, 7, 'Anak sakit', 6),
+(9, 9, 9, 'Sakit Hati', 7),
+(50, 19, 3, 'jchchc', 8),
+(51, 20, 9, 'Ingin Pulang', 9),
+(52, 9, 6, 'Sakit Ginjal', 10),
+(53, 9, 6, 'Apalah', 11);
 
 -- --------------------------------------------------------
 
@@ -61,7 +70,15 @@ CREATE TABLE `detail_periksa` (
 
 INSERT INTO `detail_periksa` (`id`, `id_periksa`, `id_obat`) VALUES
 (1, 2, 1),
-(2, 1, 4);
+(3, 11, 2),
+(8, 16, 2),
+(9, 17, 4),
+(11, 37, 2),
+(12, 38, 2),
+(13, 39, 4),
+(14, 40, 2),
+(15, 41, 4),
+(17, 43, 1);
 
 -- --------------------------------------------------------
 
@@ -85,7 +102,10 @@ CREATE TABLE `dokter` (
 
 INSERT INTO `dokter` (`id`, `nama`, `nip`, `password`, `alamat`, `no_hp`, `id_poli`) VALUES
 (4, 'Pandji', 'alama', '$2y$10$1iZODJ9Ct1AA3gI25rAl5OgLpJ7QZd1IhSjtrOiwFiireUflbD8ye', 'apalah', '08977773', 6),
-(5, 'Nazwan', 'nazwan', '$2y$10$1iZODJ9Ct1AA3gI25rAl5OgLpJ7QZd1IhSjtrOiwFiireUflbD8ye', 'Kos Bu bambang', '09786866', 7);
+(5, 'Nazwan', 'nazwan', '$2y$10$1iZODJ9Ct1AA3gI25rAl5OgLpJ7QZd1IhSjtrOiwFiireUflbD8ye', 'Kos Bu bambang', '09786866', 7),
+(56, 'Ilham', '123', '$2y$10$fHCGRl4E51yNDYW5vltDo.2XcL7wgamEoOMeGdnPD0gXay.Fs6aBS', 'Desa Konoha', '089777666', 10),
+(59, 'Hilal', '55555', '$2y$10$H8WRuF5kdDveXvMG6oHe3uPr7nDpqYszhgYEI.ncGStccEHChy8La', 'Desa Susukan', '55555', 9),
+(60, 'Nopal', '1234567890', '$2y$10$CJvaRxq0l1DVmXdtRqJCh.v3a7u0aJfM1UiB9p7.SUCoXuv5Q4.u2', 'Desa Susukan', '77778', 12);
 
 -- --------------------------------------------------------
 
@@ -107,7 +127,12 @@ CREATE TABLE `jadwal_periksa` (
 
 INSERT INTO `jadwal_periksa` (`id`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
 (3, 4, 'Sabtu', '07:00:00', '10:00:00'),
-(4, 5, 'Kamis', '15:00:00', '18:00:00');
+(4, 5, 'Kamis', '15:00:00', '18:00:00'),
+(6, 59, 'Senin', '07:00:00', '10:00:00'),
+(7, 56, 'Selasa', '00:00:00', '22:00:00'),
+(9, 60, 'Rabu', '07:00:00', '18:00:00'),
+(10, 4, 'Rabu', '09:00:00', '12:00:00'),
+(12, 60, 'Senin', '20:00:00', '22:00:00');
 
 -- --------------------------------------------------------
 
@@ -129,7 +154,8 @@ CREATE TABLE `obat` (
 INSERT INTO `obat` (`id`, `nama_obat`, `kemasan`, `harga`) VALUES
 (1, 'Paramex', 'Strip', 5000),
 (2, 'Sanmol', 'Botol', 3000),
-(4, 'Parameter1', 'Strip2', 10000);
+(4, 'Parameter1', 'Strip2', 10000),
+(7, 'Antangin X', 'Sasetan', 7000);
 
 -- --------------------------------------------------------
 
@@ -152,7 +178,22 @@ CREATE TABLE `pasien` (
 
 INSERT INTO `pasien` (`id`, `nama`, `alamat`, `no_ktp`, `no_hp`, `no_rm`) VALUES
 (1, 'REHAN', 'Desa Kam', '7889', '089777', '202312-001'),
-(3, 'YANDA', 'Desa Susukan', '27777939', '089777777', '202312-003');
+(3, 'YANDA', 'Desa Susukan', '27777939', '089777777', '202312-002'),
+(6, 'Mark Anjayani', 'Desa Seol', '12345', '0895555', '202312-003'),
+(7, 'Loki', 'Desa Asgard', '54321', '08989', '202312-004'),
+(8, 'Heimdal', 'Desa Asgard', '12354', '08977', '202312-005'),
+(9, 'Gilgamesh', 'Desa Uruk', '99999', '999990', '202312-006'),
+(10, 'Kiara', 'Desa Uruk', '99998', '09999', '202312-007'),
+(12, 'Istar', 'Desa Uruk', '77866', '67788', '202312-008'),
+(13, 'Enkidu', 'Desa Uruk', '99989', '99990', '202312-009'),
+(14, 'Mashu', 'Desa Chaldea', '5555', '5555', '202312-010'),
+(15, 'Alamak', 'Desa Seol', '56564', '8787', '202312-011'),
+(16, 'Dimas', 'Desa Konoha', '7878787', '0897977', '202312-012'),
+(17, 'Beko', 'Desa Konohamaru', '8787878675755', '979787868686', '202312-013'),
+(18, 'Bika', 'Desa Susukan', '2324335553', '2324335553', '202312-014'),
+(19, 'FUUUU', 'Desa Seol', '11222222', '11222222', '202312-015'),
+(20, 'Sandro', 'Desa Ca', '675555523234343', '097848364836483643', '202401-016'),
+(23, 'jojo', '144', '23243', '90796', '202401-017');
 
 -- --------------------------------------------------------
 
@@ -173,8 +214,16 @@ CREATE TABLE `periksa` (
 --
 
 INSERT INTO `periksa` (`id`, `id_daftar_poli`, `tgl_periksa`, `catatan`, `biaya_periksa`) VALUES
-(1, 1, '2023-12-28 17:00:00', 'Makan Tempe Tahu dan', 160000),
-(2, 2, '2023-12-28 16:00:00', 'Jangan Makan gorengan', 155000);
+(2, 2, '2023-12-28 16:00:00', 'Jangan Makan gorengan', 155000),
+(11, 1, '2023-12-30 16:57:00', 'Makan Tahu yang banyak', 153000),
+(16, 5, '2023-12-31 15:54:00', 'Mandi', 153000),
+(17, 6, '2023-12-27 15:55:42', 'Mandi 10 Kali perhari', 160000),
+(37, 7, '2023-12-31 20:32:00', 'Sa', 153000),
+(38, 9, '2024-01-04 13:43:00', 'Makan Hati', 153000),
+(39, 51, '2024-01-04 13:50:00', 'Ngimpi dek', 160000),
+(40, 52, '2024-01-12 09:35:00', 'Makan Ginjalnya', 153000),
+(41, 53, '2024-01-04 09:40:00', 'Asljdkajvc', 160000),
+(43, 50, '2024-01-05 18:32:00', 'Makan Ginjalnya', 155000);
 
 -- --------------------------------------------------------
 
@@ -193,11 +242,11 @@ CREATE TABLE `poli` (
 --
 
 INSERT INTO `poli` (`id`, `nama_poli`, `keterangan`) VALUES
-(1, 'Poli Anak', 'Ini untuk poli Anak'),
-(3, 'Poli Kandungan', 'Untuk Ibu'),
-(4, 'Poli Penyakit Dalam', 'Untuk Penyakit Dalam'),
 (6, 'Poli Penyakit Luar', 'Untuk Luka Luar'),
-(7, 'Poli Bapak', 'Untuk Bapak-bapak');
+(7, 'Poli Ibu', 'Untuk Ibu'),
+(9, 'Poli Penyakit Dalam', 'Untuk Luka Dalam'),
+(10, 'Poli Anak', 'Untuk Anak'),
+(12, 'Poli Sepuh', 'Untuk Sesepuh');
 
 -- --------------------------------------------------------
 
@@ -219,7 +268,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `nama`, `username`, `password`) VALUES
 (3, 'Pandji Alam', 'pandji', '$2y$10$1iZODJ9Ct1AA3gI25rAl5OgLpJ7QZd1IhSjtrOiwFiireUflbD8ye'),
 (4, 'Hilal', 'hilal', '$2y$10$LlSinySoYdFtZcwtrzvMGOFsOagICS0M3HH3dxsf9k7hx0U4Jkxby'),
-(5, 'Nazwan', 'nazwan', '$2y$10$DeA6XDGBIRDZhK4WSnPBbuWYC/zjaL3tjFYMGSHb8RjP0dwnkNAk.');
+(5, 'Nazwan', 'nazwan', '$2y$10$DeA6XDGBIRDZhK4WSnPBbuWYC/zjaL3tjFYMGSHb8RjP0dwnkNAk.'),
+(6, '12345', '12345', '$2y$10$Z22A1aq35Oe.fWjec7c2OeWzQIUjlsil0pUW164nsuyu2pZMzLAlS');
 
 --
 -- Indexes for dumped tables
@@ -294,55 +344,55 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `daftar_poli`
 --
 ALTER TABLE `daftar_poli`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `detail_periksa`
 --
 ALTER TABLE `detail_periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `jadwal_periksa`
 --
 ALTER TABLE `jadwal_periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `periksa`
 --
 ALTER TABLE `periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `poli`
 --
 ALTER TABLE `poli`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
