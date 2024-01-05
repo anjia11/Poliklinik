@@ -53,6 +53,9 @@ include_once("koneksi.php");
                                 <li>
                                     <a class="dropdown-item" href="index.php?page=poli">Poli</a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item" href="index.php?page=olahPasien">Olah Pasien</a>
+                                </li>
                             </ul>
                         </li>
                 <?php
@@ -68,6 +71,9 @@ include_once("koneksi.php");
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="index.php?page=pasien">Riwayat Pasien</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="index.php?page=jadwalDokter">Jadwal Dokter</a>
                                 </li>
                             </ul>
                         </li>
@@ -86,13 +92,27 @@ include_once("koneksi.php");
 
             <?php
                 if (isset($_SESSION['role'])) {
+                    $role = $_SESSION['role'];
+                    ?>
+                    <div class="ms-auto d-flex">
+                    <?php
                     // Jika pengguna sudah login, tampilkan tombol "Logout"
+                    if($role == 'admin'){
+                        ?>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php?page=registerUser">Daftar</a>
+                            </li>
+                        </ul>
+                    <?php
+                    }
                 ?>
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="Logout.php">Logout (<?php echo $_SESSION['name'] ?>)</a>
-                        </li>
-                    </ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="Logout.php">Logout (<?php echo $_SESSION['name'] ?>)</a>
+                            </li>
+                        </ul>
+                    </div>
                 <?php
                 } else {
                     // Jika pengguna belum login, tampilkan tombol "Login" dan "Register"

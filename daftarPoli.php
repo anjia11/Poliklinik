@@ -9,17 +9,24 @@ if (!isset($_SESSION['role'])) {
 }
 
 if (isset($_POST['simpan'])) {
-    $query_ambil_jumlah_daftar = "SELECT COUNT(id) AS jumlah_daftar FROM daftar_poli";
-    $data = mysqli_fetch_assoc(mysqli_query($mysqli, $query_ambil_jumlah_daftar));
-    $no_antrian = $data["jumlah_daftar"]+1;
-    if (isset($_SESSION['id_pasien'])){
-        $tambah = mysqli_query($mysqli, "INSERT INTO daftar_poli (id_pasien, id_jadwal, keluhan, no_antrian) 
-                                            VALUES (
-                                                '" . $_SESSION['id_pasien'] . "',
-                                                '" . $_POST['new_id_jadwal'] . "',
-                                                '" . $_POST['keluhan'] . "' ,
-                                                '" . $no_antrian . "' 
-                                            )");
+    if ($_POST['new_id_poli'] == '999') {
+        echo'
+            <script>alert("Poli Tidak Boleh Kosong")</script>
+        ';
+        echo'meta http-equiv="refresh" content="0>';
+    }else{
+        $query_ambil_jumlah_daftar = "SELECT COUNT(id) AS jumlah_daftar FROM daftar_poli";
+        $data = mysqli_fetch_assoc(mysqli_query($mysqli, $query_ambil_jumlah_daftar));
+        $no_antrian = $data["jumlah_daftar"]+1;
+        if (isset($_SESSION['id_pasien'])){
+            $tambah = mysqli_query($mysqli, "INSERT INTO daftar_poli (id_pasien, id_jadwal, keluhan, no_antrian) 
+                                                VALUES (
+                                                    '" . $_SESSION['id_pasien'] . "',
+                                                    '" . $_POST['new_id_jadwal'] . "',
+                                                    '" . $_POST['keluhan'] . "' ,
+                                                    '" . $no_antrian . "'
+                                                )");
+        }
     }
     echo "<script> 
                 document.location='index.php?page=daftarPoli';
@@ -47,7 +54,7 @@ if (isset($_POST['simpan'])) {
                             <label for="inputPoli">Pilih Poli</label>
                             <div>
                                 <select class="form-select" aria-label="Default select example" name="new_id_poli" id ="inputPoli">
-                                    <option selected>Buka untuk Pilih Poli</option>
+                                    <option selected value="999">Buka untuk Pilih Poli</option>
                                     <?php
                                         $ambilPoli = mysqli_query($mysqli, "SELECT * FROM poli");
                                         while ($row = mysqli_fetch_array($ambilPoli)) {
@@ -73,7 +80,7 @@ if (isset($_POST['simpan'])) {
                         </div>
                         <div class="form-group">
                             <label for="inputKeluhan">Keluhan</label>
-                            <textarea class="form-control" name="keluhan" id="inputKeluhan" rows="3"></textarea>
+                            <textarea class="form-control" required name="keluhan" id="inputKeluhan" rows="3"></textarea>
                         </div>
                         <div class="text-center mt-3">
                             <button type="submit" class="btn btn-primary btn-block" name="simpan">Daftar</button>

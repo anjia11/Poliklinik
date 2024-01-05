@@ -52,11 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <label for="nip">NIP</label>
                             <input type="text" name="nip" class="form-control" required placeholder="Masukkan NIP anda">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-1">
                             <label for="password">Password</label>
                             <input type="password" name="password" class="form-control" required placeholder="Masukkan password anda">
                         </div>
-                        <div class="text-center">
+                        <div class="text-center mt-3">
                             <button type="submit" class="btn btn-primary btn-block">Login</button>
                         </div>
                     </form>

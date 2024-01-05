@@ -16,29 +16,30 @@ if (isset($_POST['simpan'])) {
             <script>alert("Poli Tidak Boleh Kosong")</script>
         ';
         echo'meta http-equiv="refresh" content="0>';
-    }
-    $password = $_POST['password'];
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    if (isset($_POST['id'])) {
-        $ubah = mysqli_query($mysqli, "UPDATE dokter SET 
-                                            nama = '" . $_POST['nama'] . "',
-                                            nip = '" . $_POST['nip'] . "',
-                                            password = '" . $_POST['password'] . "',
-                                            alamat = '" . $_POST['alamat'] . "',
-                                            no_hp = '" . $_POST['no_hp'] . "',
-                                            id_poli = '" . $_POST['id_poli'] . "'
-                                            WHERE
-                                            id = '" . $_POST['id'] . "'");
-    } else {
-        $tambah = mysqli_query($mysqli, "INSERT INTO dokter (nama, nip, password, alamat, no_hp, id_poli) 
-                                            VALUES (
-                                                '" . $_POST['nama'] . "',
-                                                '" . $_POST['nip'] . "',
-                                                '" . $hashed_password . "',
-                                                '" . $_POST['alamat'] . "',
-                                                '" . $_POST['no_hp'] . "',
-                                                '" . $_POST['id_poli'] . "'
-                                            )");
+    }else{
+        $password = $_POST['password'];
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        if (isset($_POST['id'])) {
+            $ubah = mysqli_query($mysqli, "UPDATE dokter SET 
+                                                nama = '" . $_POST['nama'] . "',
+                                                nip = '" . $_POST['nip'] . "',
+                                                password = '" . $_POST['password'] . "',
+                                                alamat = '" . $_POST['alamat'] . "',
+                                                no_hp = '" . $_POST['no_hp'] . "',
+                                                id_poli = '" . $_POST['id_poli'] . "'
+                                                WHERE
+                                                id = '" . $_POST['id'] . "'");
+        } else {
+            $tambah = mysqli_query($mysqli, "INSERT INTO dokter (nama, nip, password, alamat, no_hp, id_poli) 
+                                                VALUES (
+                                                    '" . $_POST['nama'] . "',
+                                                    '" . $_POST['nip'] . "',
+                                                    '" . $hashed_password . "',
+                                                    '" . $_POST['alamat'] . "',
+                                                    '" . $_POST['no_hp'] . "',
+                                                    '" . $_POST['id_poli'] . "'
+                                                )");
+        }
     }
     echo "<script> 
                 document.location='index.php?page=dokter';
@@ -93,7 +94,7 @@ if (isset($_GET['aksi'])) {
                 Nama Dokter
             </label>
             <div>
-                <input type="text" class="form-control" name="nama" id="inputNama" placeholder="Nama Dokter" value="<?php echo $nama_dokter ?>">
+                <input type="text" class="form-control" name="nama" id="inputNama" required placeholder="Nama Dokter" value="<?php echo $nama_dokter ?>">
             </div>
         </div>
         <div class="row mt-1">
@@ -101,7 +102,7 @@ if (isset($_GET['aksi'])) {
                 NIP
             </label>
             <div>
-                <input type="text" class="form-control" name="nip" id="inputNip" placeholder="NIP" value="<?php echo $nip ?>">
+                <input type="text" class="form-control" name="nip" id="inputNip" required placeholder="NIP" value="<?php echo $nip ?>">
             </div>
         </div>
         <div class="row mt-1">
@@ -109,7 +110,7 @@ if (isset($_GET['aksi'])) {
                 Password
             </label>
             <div>
-                <input type="text" class="form-control" name="password" id="inputPassword" placeholder="Password" value="<?php echo $password ?>">
+                <input type="password" class="form-control" name="password" id="inputPassword" required placeholder="Password" value="<?php echo $password ?>">
             </div>
         </div>
         <div class="row mt-1">
@@ -117,7 +118,7 @@ if (isset($_GET['aksi'])) {
                 Alamat
             </label>
             <div>
-                <input type="text" class="form-control" name="alamat" id="inputAlamat" placeholder="Alamat" value="<?php echo $alamat ?>">
+                <input type="text" class="form-control" name="alamat" id="inputAlamat" required placeholder="Alamat" value="<?php echo $alamat ?>">
             </div>
         </div>
         <div class="row mt-1">
@@ -125,7 +126,7 @@ if (isset($_GET['aksi'])) {
                 No. HP
             </label>
             <div>
-                <input type="text" class="form-control" name="no_hp" id="inputHp" placeholder="No. HP" value="<?php echo $no_hp ?>">
+                <input type="text" class="form-control" name="no_hp" id="inputHp" required placeholder="No. HP" value="<?php echo $no_hp ?>">
             </div>
         </div>
         <div class="row mt-1">
