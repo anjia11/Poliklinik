@@ -9,29 +9,32 @@ if (!isset($_SESSION['role'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $biaya_default = 150000;
-    $tgl_periksa = $_POST['tgl_periksa'];
-    $catatan = $_POST['catatan'];
-    $harga_obat;
-    $ambilHarga = mysqli_query($mysqli, "SELECT * FROM obat WHERE id = '" . $_POST['new_id_obat'] . "'");
-    $data = mysqli_fetch_array($ambilHarga);
-    $harga_obat = $data['harga'];
-    $biaya_periksa = $biaya_default + $harga_obat;
-    $id_dapol = $_GET['dpid'];
-    $id_obat = $_POST['new_id_obat'];
     if (isset($_POST['simpan'])) {
         
-            
-        if (isset($_GET['id'])) {
-            $ubah = mysqli_query($mysqli, "INSERT INTO periksa(id_daftar_poli, tgl_periksa, catatan, biaya_periksa) VALUES ('$id_dapol', '$tgl_periksa', '$catatan', '$biaya_periksa')");
-                                                    
+        if ($_POST['new_id_obat'] == '999') {
+            echo'
+                <script>alert("Obat Tidak Boleh Kosong")</script>
+            ';
+            echo'meta http-equiv="refresh" content="0>';
+        }else{
+            $biaya_default = 150000;
+            $tgl_periksa = $_POST['tgl_periksa'];
+            $catatan = $_POST['catatan'];
+            $harga_obat;
+            $ambilHarga = mysqli_query($mysqli, "SELECT * FROM obat WHERE id = '" . $_POST['new_id_obat'] . "'");
+            $data = mysqli_fetch_array($ambilHarga);
+            $harga_obat = $data['harga'];
+            $biaya_periksa = $biaya_default + $harga_obat;
+            $id_dapol = $_GET['dpid'];
+            $id_obat = $_POST['new_id_obat'];
+            if (isset($_GET['id'])) {
+                $ubah = mysqli_query($mysqli, "INSERT INTO periksa(id_daftar_poli, tgl_periksa, catatan, biaya_periksa) VALUES ('$id_dapol', '$tgl_periksa', '$catatan', '$biaya_periksa')");
+                                                        
+            }
+            echo "<script>
+                    document.location='index.php?page=periksa&dpid=$id_dapol&id_obat=$id_obat&aksi=update';
+                    </script>";
         }
-        echo "<script>
-                document.location='index.php?page=periksa&dpid=$id_dapol&id_obat=$id_obat&aksi=update';
-                </script>";
-
-        
-        
     }
 }
 if (isset($_GET['aksi'])) {
@@ -104,6 +107,7 @@ if (isset($_GET['aksi'])) {
                 </label>
                 <div>
                     <select class="form-select" aria-label="Default select example" name="new_id_obat" id ="inputObat">
+                        <option selected value="999">Buka untuk Pilih Poli</option>
                         <?php
                             $ambilObat = mysqli_query($mysqli, "SELECT * FROM obat");
                             while ($row = mysqli_fetch_array($ambilObat)) {
