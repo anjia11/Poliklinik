@@ -173,6 +173,7 @@ if (isset($_POST['simpan'])) {
                                             WHERE id_dokter = '".$_SESSION['id_dokter']."'");
             $no = 1;
             while ($data = mysqli_fetch_array($result)) {
+                $status = ($data["aktif"] == 'Y') ? "Aktif" : "Tidak Aktif";
             ?>
                 <tr>
                     <th scope="row"><?php echo $no++ ?></th>
@@ -180,7 +181,7 @@ if (isset($_POST['simpan'])) {
                     <td><?php echo $data['hari'] ?></td>
                     <td><?php echo $data['jam_mulai'] ?></td>
                     <td><?php echo $data['jam_selesai'] ?></td>
-                    <td><?php echo $data['aktif'] ?></td>
+                    <td><?php echo $status ?></td>
                     <td>
                         <a class="btn btn-success rounded-pill px-3" href="index.php?page=jadwalDokter&id=<?php echo $data['id'] ?>">Ubah</a>
                         <!-- <a class="btn btn-danger rounded-pill px-3" href="index.php?page=jadwalDokter&id=<?php echo $data['id'] ?>&aksi=hapus">Hapus</a> -->
