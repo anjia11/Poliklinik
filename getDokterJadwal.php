@@ -9,7 +9,7 @@ $id_poli = isset($_GET['idpoli']) ? $_GET['idpoli'] : null;
 $query = "SELECT po.*, dk.*, jp.*, jp.id AS jp_id FROM poli AS po 
             JOIN dokter AS dk ON po.id = dk.id_poli
             JOIN jadwal_periksa AS jp ON dk.id = jp.id_dokter
-            WHERE po.id = $id_poli";
+            WHERE po.id = $id_poli AND jp.aktif = 'Y'";
 
 $result = mysqli_query($mysqli, $query);
 

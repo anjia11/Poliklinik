@@ -69,9 +69,12 @@ if (isset($_POST['simpan'])) {
                             <select class="form-select" aria-label="Disabled select example" name="new_id_jadwal" id="jadwalDokter">
                                 <option disabled selected>Dokter dan Jadwal</option>
                                 <?php
+                                    $aktif = 'Y';
                                     $ambilDokter = mysqli_query($mysqli, "SELECT po.*, dk.*, jp.*, jp.id AS jp_id FROM poli AS po 
                                                                             JOIN dokter AS dk ON po.id = dk.id_poli
-                                                                            JOIN jadwal_periksa AS jp ON dk.id = jp.id_dokter");
+                                                                            JOIN jadwal_periksa AS jp ON dk.id = jp.id_dokter
+                                                                            WHERE jp.aktif = 'Y'
+                                                                            ");
                                     while ($row = mysqli_fetch_array($ambilDokter)) {
                                         echo "<option value='" . $row["jp_id"] . "'>" . $row["nama"] .'-'.$row["hari"].'-'.$row["nama_poli"]."</option>";
                                     }
