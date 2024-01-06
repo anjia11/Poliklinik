@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 05, 2024 at 01:34 PM
+-- Generation Time: Jan 06, 2024 at 09:11 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
 
@@ -50,7 +50,9 @@ INSERT INTO `daftar_poli` (`id`, `id_pasien`, `id_jadwal`, `keluhan`, `no_antria
 (50, 19, 3, 'jchchc', 8),
 (51, 20, 9, 'Ingin Pulang', 9),
 (52, 9, 6, 'Sakit Ginjal', 10),
-(53, 9, 6, 'Apalah', 11);
+(53, 9, 6, 'Apalah', 11),
+(81, 10, 3, 'Saya Sakit Pinggang', 12),
+(82, 9, 3, 'Sakit Perut', 13);
 
 -- --------------------------------------------------------
 
@@ -78,7 +80,9 @@ INSERT INTO `detail_periksa` (`id`, `id_periksa`, `id_obat`) VALUES
 (13, 39, 4),
 (14, 40, 2),
 (15, 41, 4),
-(17, 43, 1);
+(17, 43, 1),
+(23, 49, 7),
+(24, 50, 7);
 
 -- --------------------------------------------------------
 
@@ -118,21 +122,24 @@ CREATE TABLE `jadwal_periksa` (
   `id_dokter` int(11) NOT NULL,
   `hari` enum('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu') NOT NULL,
   `jam_mulai` time NOT NULL,
-  `jam_selesai` time NOT NULL
+  `jam_selesai` time NOT NULL,
+  `aktif` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `jadwal_periksa`
 --
 
-INSERT INTO `jadwal_periksa` (`id`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
-(3, 4, 'Sabtu', '07:00:00', '10:00:00'),
-(4, 5, 'Kamis', '15:00:00', '18:00:00'),
-(6, 59, 'Senin', '07:00:00', '10:00:00'),
-(7, 56, 'Selasa', '00:00:00', '22:00:00'),
-(9, 60, 'Rabu', '07:00:00', '18:00:00'),
-(10, 4, 'Rabu', '09:00:00', '12:00:00'),
-(12, 60, 'Senin', '20:00:00', '22:00:00');
+INSERT INTO `jadwal_periksa` (`id`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`, `aktif`) VALUES
+(3, 4, 'Sabtu', '07:00:00', '10:00:00', 'N'),
+(4, 5, 'Kamis', '15:00:00', '18:00:00', 'Y'),
+(6, 59, 'Senin', '07:00:00', '10:00:00', 'Y'),
+(7, 56, 'Selasa', '00:00:00', '22:00:00', 'Y'),
+(9, 60, 'Rabu', '07:00:00', '18:00:00', 'Y'),
+(10, 4, 'Rabu', '09:00:00', '12:00:00', 'N'),
+(12, 60, 'Senin', '20:00:00', '22:00:00', 'Y'),
+(14, 4, 'Senin', '08:00:00', '18:00:00', 'N'),
+(15, 4, 'Selasa', '15:07:00', '18:07:00', 'Y');
 
 -- --------------------------------------------------------
 
@@ -193,7 +200,8 @@ INSERT INTO `pasien` (`id`, `nama`, `alamat`, `no_ktp`, `no_hp`, `no_rm`) VALUES
 (18, 'Bika', 'Desa Susukan', '2324335553', '2324335553', '202312-014'),
 (19, 'FUUUU', 'Desa Seol', '11222222', '11222222', '202312-015'),
 (20, 'Sandro', 'Desa Ca', '675555523234343', '097848364836483643', '202401-016'),
-(23, 'jojo', '144', '23243', '90796', '202401-017');
+(23, 'jojo', '144', '23243', '90796', '202401-017'),
+(25, 'Kiki', 'Desa H', '123454345', '123454345', '202401-018');
 
 -- --------------------------------------------------------
 
@@ -223,7 +231,9 @@ INSERT INTO `periksa` (`id`, `id_daftar_poli`, `tgl_periksa`, `catatan`, `biaya_
 (39, 51, '2024-01-04 13:50:00', 'Ngimpi dek', 160000),
 (40, 52, '2024-01-12 09:35:00', 'Makan Ginjalnya', 153000),
 (41, 53, '2024-01-04 09:40:00', 'Asljdkajvc', 160000),
-(43, 50, '2024-01-05 18:32:00', 'Makan Ginjalnya', 155000);
+(43, 50, '2024-01-05 18:32:00', 'Makan Ginjalnya', 155000),
+(49, 81, '2024-01-05 19:51:00', 'Pijat', 157000),
+(50, 82, '2024-01-06 13:47:00', 'Makan apel', 157000);
 
 -- --------------------------------------------------------
 
@@ -344,13 +354,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `daftar_poli`
 --
 ALTER TABLE `daftar_poli`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `detail_periksa`
 --
 ALTER TABLE `detail_periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `dokter`
@@ -362,7 +372,7 @@ ALTER TABLE `dokter`
 -- AUTO_INCREMENT for table `jadwal_periksa`
 --
 ALTER TABLE `jadwal_periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `obat`
@@ -374,13 +384,13 @@ ALTER TABLE `obat`
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `periksa`
 --
 ALTER TABLE `periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `poli`
