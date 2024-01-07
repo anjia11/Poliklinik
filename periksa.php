@@ -10,13 +10,13 @@ if (!isset($_SESSION['role'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['simpan'])) {
-        
+
         if ($_POST['new_id_obat'] == '999') {
-            echo'
+            echo '
                 <script>alert("Obat Tidak Boleh Kosong")</script>
             ';
-            echo'meta http-equiv="refresh" content="0>';
-        }else{
+            echo 'meta http-equiv="refresh" content="0>';
+        } else {
             $biaya_default = 150000;
             $tgl_periksa = $_POST['tgl_periksa'];
             $catatan = $_POST['catatan'];
@@ -29,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $id_obat = $_POST['new_id_obat'];
             if (isset($_GET['id'])) {
                 $ubah = mysqli_query($mysqli, "INSERT INTO periksa(id_daftar_poli, tgl_periksa, catatan, biaya_periksa) VALUES ('$id_dapol', '$tgl_periksa', '$catatan', '$biaya_periksa')");
-                                                        
             }
             echo "<script>
                     document.location='index.php?page=periksa&dpid=$id_dapol&id_obat=$id_obat&aksi=update';
@@ -58,73 +57,75 @@ if (isset($_GET['aksi'])) {
 <div class="container">
     <!--Form Input Data-->
     <?php
-        if (isset($_GET["id"])) {
+    if (isset($_GET["id"])) {
     ?>
-            <form class="form row" method="POST" action="" name="myForm" onsubmit="return(validate());">
-                <!-- Kode php untuk menghubungkan form dengan database -->
-                <?php
-                $nama_pasien = '';
-                if (isset($_GET['id'])) {
-                    $ambil = mysqli_query($mysqli, "SELECT ps.*
+        <form class="form row" method="POST" action="" name="myForm" onsubmit="return(validate());">
+            <!-- Kode php untuk menghubungkan form dengan database -->
+            <?php
+            $nama_pasien = '';
+            if (isset($_GET['id'])) {
+                $ambil = mysqli_query(
+                    $mysqli,
+                    "SELECT ps.*
                                                         FROM pasien AS ps
                                                             WHERE ps.id = '" . $_GET['id'] . "'"
-                                                        );
-                    while ($row = mysqli_fetch_array($ambil)) {
-                        $nama_pasien = $row['nama'];
-                    }
-                ?>
-                    <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
-                <?php
+                );
+                while ($row = mysqli_fetch_array($ambil)) {
+                    $nama_pasien = $row['nama'];
                 }
-                ?>
-                <div class="row">
-                    <label for="inputNama" class="form-label fw-bold">
-                        Nama Pasien
-                    </label>
-                    <div>
-                        <input type="text" readonly class="form-control" name="nama_pasien" id="inputNama" placeholder="Nama Pasien" value="<?php echo $nama_pasien ?>">
-                    </div>
+            ?>
+                <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
+            <?php
+            }
+            ?>
+            <div class="row">
+                <label for="inputNama" class="form-label fw-bold">
+                    Nama Pasien
+                </label>
+                <div>
+                    <input type="text" readonly class="form-control" name="nama_pasien" id="inputNama" placeholder="Nama Pasien" value="<?php echo $nama_pasien ?>">
                 </div>
-                <div class="row mt-1">
-                    <label for="inputJadwal" class="form-label fw-bold">
-                        Tanggal Periksa
-                    </label>
-                    <div>
-                        <input type="datetime-local" class="form-control" name="tgl_periksa" id="inputJadwal" required placeholder="Tanggal Periksa">
-                    </div>
+            </div>
+            <div class="row mt-1">
+                <label for="inputJadwal" class="form-label fw-bold">
+                    Tanggal Periksa
+                </label>
+                <div>
+                    <input type="datetime-local" class="form-control" name="tgl_periksa" id="inputJadwal" required placeholder="Tanggal Periksa">
                 </div>
-                <div class="row mt-1">
-                    <label for="inputCatatan" class="form-label fw-bold">
-                        Catatan
-                    </label>
-                    <div>
-                        <input type="text" class="form-control" name="catatan" id="inputCatatan" required placeholder="Catatan">
-                    </div>
+            </div>
+            <div class="row mt-1">
+                <label for="inputCatatan" class="form-label fw-bold">
+                    Catatan
+                </label>
+                <div>
+                    <input type="text" class="form-control" name="catatan" id="inputCatatan" required placeholder="Catatan">
                 </div>
-                <div class="row mt-1">
+            </div>
+            <div class="row mt-1">
                 <label for="inputObat" class="form-label fw-bold">
                     Obat
                 </label>
                 <div>
-                    <select class="form-select" aria-label="Default select example" name="new_id_obat" id ="inputObat">
+                    <select class="form-select" aria-label="Default select example" name="new_id_obat" id="inputObat">
                         <option selected value="999">Buka untuk Pilih Poli</option>
                         <?php
-                            $ambilObat = mysqli_query($mysqli, "SELECT * FROM obat");
-                            while ($row = mysqli_fetch_array($ambilObat)) {
-                                echo "<option value='" . $row["id"] . "'>" . $row["nama_obat"] . "</option>";
-                            }
+                        $ambilObat = mysqli_query($mysqli, "SELECT * FROM obat");
+                        while ($row = mysqli_fetch_array($ambilObat)) {
+                            echo "<option value='" . $row["id"] . "'>" . $row["nama_obat"] . "</option>";
+                        }
                         ?>
                     </select>
                 </div>
+            </div>
+            <div class="row mt-3">
+                <div class=col>
+                    <button type="submit" id="submit" class="btn btn-primary rounded-pill px-3 mt-auto" name="simpan">Simpan</button>
                 </div>
-                <div class="row mt-3">
-                    <div class=col>
-                        <button type="submit" id="submit" class="btn btn-primary rounded-pill px-3 mt-auto" name="simpan">Simpan</button>
-                    </div>
-                </div>
-            </form>
+            </div>
+        </form>
     <?php
-        }
+    }
     ?>
     <br>
     <br>
@@ -148,7 +149,7 @@ if (isset($_GET['aksi'])) {
                                                     JOIN pasien AS ps ON ps.id = dp.id_pasien
                                                     JOIN jadwal_periksa AS jp ON dp.id_jadwal = dp.id_jadwal
                                                     JOIN dokter AS dok ON jp.id_dokter = dok.id
-                                                WHERE  dp.id_jadwal = jp.id AND jp.id_dokter = '".$_SESSION['id_dokter']."'
+                                                WHERE  dp.id_jadwal = jp.id AND jp.id_dokter = '" . $_SESSION['id_dokter'] . "'
                                                     ");
             while ($data = mysqli_fetch_array($result)) {
             ?>

@@ -15,4 +15,3 @@ if ($role == 'admin') {
     header("Location: index.php?page=pendaftaranPasien");
 }
 exit();
-?>

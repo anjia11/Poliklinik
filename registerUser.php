@@ -1,41 +1,41 @@
 <?php
-    if (!isset($_SESSION)) {
-        session_start();
-    }
+if (!isset($_SESSION)) {
+    session_start();
+}
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $nama_admin = $_POST['nama'];
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        $confirm_password = $_POST['confirm_password'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nama_admin = $_POST['nama'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
 
-        if ($password === $confirm_password) {
-            $query = "SELECT * FROM user WHERE username = '$username'";
-            $result = $mysqli->query($query);
+    if ($password === $confirm_password) {
+        $query = "SELECT * FROM user WHERE username = '$username'";
+        $result = $mysqli->query($query);
 
-            if ($result === false) {
-                die("Query error: " . $mysqli->error);
-            }
+        if ($result === false) {
+            die("Query error: " . $mysqli->error);
+        }
 
-            if ($result->num_rows == 0) {
-                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        if ($result->num_rows == 0) {
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-                $insert_query = "INSERT INTO user (nama, username, password) VALUES ('$nama_admin', '$username', '$hashed_password')";
-                if (mysqli_query($mysqli, $insert_query)) {
-                    echo "<script>
+            $insert_query = "INSERT INTO user (nama, username, password) VALUES ('$nama_admin', '$username', '$hashed_password')";
+            if (mysqli_query($mysqli, $insert_query)) {
+                echo "<script>
                     alert('Pendaftaran Berhasil'); 
                     document.location='index.php?page=loginUser';
                     </script>";
-                } else {
-                    $error = "Pendaftaran gagal";
-                }
             } else {
-                $error = "Username sudah digunakan";
+                $error = "Pendaftaran gagal";
             }
         } else {
-            $error = "Password tidak cocok";
+            $error = "Username sudah digunakan";
         }
+    } else {
+        $error = "Password tidak cocok";
     }
+}
 ?>
 <div class="container mt-5">
     <div class="row justify-content-center">

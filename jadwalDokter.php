@@ -10,23 +10,22 @@ if (!isset($_SESSION['role'])) {
 
 if (isset($_POST['simpan'])) {
     if ($_POST['hari'] == '999') {
-        echo'
+        echo '
             <script>alert("Hari Tidak Boleh Kosong")</script>
         ';
-        echo'meta http-equiv="refresh" content="0>';
-    }
-    elseif($_POST['aktif'] == '999'){
-        echo'
+        echo 'meta http-equiv="refresh" content="0>';
+    } elseif ($_POST['aktif'] == '999') {
+        echo '
             <script>alert("Status Tidak Boleh Kosong")</script>
         ';
-        echo'meta http-equiv="refresh" content="0>';
-    }else{
+        echo 'meta http-equiv="refresh" content="0>';
+    } else {
         if (isset($_POST['id'])) {
             $ubah = mysqli_query($mysqli, "UPDATE jadwal_periksa SET 
                                                 hari = '" . $_POST['hari'] . "',
                                                 jam_mulai = '" . $_POST['jam_mulai'] . "',
                                                 jam_selesai = '" . $_POST['jam_selesai'] . "',
-                                                aktif = '".$_POST['aktif']."'
+                                                aktif = '" . $_POST['aktif'] . "'
                                                 WHERE
                                                 id = '" . $_POST['id'] . "'");
         } else {
@@ -36,7 +35,7 @@ if (isset($_POST['simpan'])) {
                                                     '" . $_POST['hari'] . "',
                                                     '" . $_POST['jam_mulai'] . "',
                                                     '" . $_POST['jam_selesai'] . "',
-                                                    '".$_POST['aktif']."'
+                                                    '" . $_POST['aktif'] . "'
                                                 )");
         }
     }
@@ -88,14 +87,13 @@ if (isset($_POST['simpan'])) {
                 <?php
                 if (!isset($_GET['id'])) {
                 ?>
-                <option value="999" selected>Pilih Hari</option>
+                    <option value="999" selected>Pilih Hari</option>
+                <?php
+                } else {
+                ?>
+                    <option value="<?php echo $hari ?>"><?php echo $hari ?></option>
                 <?php
                 }
-                else{
-                ?>
-                    <option value="<?php echo $hari?>"><?php echo $hari?></option>
-                <?php
-                    }
                 ?>
                 <option value="Senin">Senin</option>
                 <option value="Selasa">Selasa</option>
@@ -129,14 +127,13 @@ if (isset($_POST['simpan'])) {
                 <?php
                 if (!isset($_GET['id'])) {
                 ?>
-                <option value="999" selected>Status Aktif/Tidak</option>
+                    <option value="999" selected>Status Aktif/Tidak</option>
+                <?php
+                } else {
+                ?>
+                    <option value="<?php echo $aktif ?>"><?php echo $aktif ?></option>
                 <?php
                 }
-                else{
-                ?>
-                    <option value="<?php echo $aktif?>"><?php echo $aktif?></option>
-                <?php
-                    }
                 ?>
                 <option value="Y">Y</option>
                 <option value="N">N</option>
@@ -170,7 +167,7 @@ if (isset($_POST['simpan'])) {
             <?php
             $result = mysqli_query($mysqli, "SELECT jp.*, dok.nama AS nama_dokter FROM jadwal_periksa AS jp
                                                     JOIN dokter AS dok ON id_dokter = dok.id
-                                            WHERE id_dokter = '".$_SESSION['id_dokter']."'");
+                                            WHERE id_dokter = '" . $_SESSION['id_dokter'] . "'");
             $no = 1;
             while ($data = mysqli_fetch_array($result)) {
                 $status = ($data["aktif"] == 'Y') ? "Aktif" : "Tidak Aktif";

@@ -17,30 +17,30 @@ if (isset($_POST['simpan'])) {
                                             no_hp = '" . $_POST['no_hp'] . "'
                                             WHERE
                                             id = '" . $_POST['id'] . "'");
-    }else{
+    } else {
         $no_ktp = $_POST['no_ktp'];
         $query_cek = "SELECT * FROM pasien WHERE no_ktp = '$no_ktp'";
         $result = $mysqli->query($query_cek);
-    
+
         if ($result === false) {
             die("Query error: " . $mysqli->error);
         }
-        
+
         if ($result->num_rows == 0) {
             $query_ambil_jumlah_pasien = "SELECT COUNT(id) AS jumlah_pasien FROM pasien";
             $data = mysqli_fetch_assoc(mysqli_query($mysqli, $query_ambil_jumlah_pasien));
-            $jumlah_pasien = $data["jumlah_pasien"]+1;
+            $jumlah_pasien = $data["jumlah_pasien"] + 1;
             $set_jumlah_pasien = '';
-            if ($jumlah_pasien < 10){
+            if ($jumlah_pasien < 10) {
                 $set_jumlah_pasien = "00{$jumlah_pasien}";
-            }else{
-                if ($jumlah_pasien < 100){
+            } else {
+                if ($jumlah_pasien < 100) {
                     $set_jumlah_pasien = "0{$jumlah_pasien}";
-                }else{
+                } else {
                     $set_jumlah_pasien = "{$jumlah_pasien}";
                 }
             }
-            $no_rm = date("Ym"). "-" .(string)$set_jumlah_pasien;
+            $no_rm = date("Ym") . "-" . (string)$set_jumlah_pasien;
             $tambah = "INSERT INTO pasien (nama, alamat, no_ktp, no_hp, no_rm) 
                                                     VALUES (
                                                         '" . $_POST['nama'] . "',
@@ -54,10 +54,9 @@ if (isset($_POST['simpan'])) {
                 alert('Pendaftaran Berhasil'); 
                 document.location='index.php?page=olahPasien';
                 </script>";
-            }else{
+            } else {
                 $error = "Pendaftaran gagal";
             }
-            
         }
         echo "<script>
                 alert('No. KTP sudah Terdaftar, Pendaftaran Gagal!'); 

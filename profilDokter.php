@@ -54,7 +54,7 @@ if (isset($_POST['simpan_password'])) {
                 $hashed_password_baru = password_hash($password_baru, PASSWORD_DEFAULT);
 
                 $update_pass_query = "UPDATE dokter SET 
-                                            password = '". $hashed_password_baru ."'
+                                            password = '" . $hashed_password_baru . "'
                                             WHERE
                                             id = '" . $_SESSION['id_dokter'] . "'";
                 if (mysqli_query($mysqli, $update_pass_query)) {
@@ -62,7 +62,7 @@ if (isset($_POST['simpan_password'])) {
                             alert('Update Berhasil'); 
                             document.location='index.php?page=profilDokter';
                             </script>";
-                }else{
+                } else {
                     echo "<script>
                             alert('Update Gagal');
                             document.location='index.php?page=profilDokter';

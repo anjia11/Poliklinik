@@ -10,15 +10,15 @@ if (!isset($_SESSION['role'])) {
 
 if (isset($_POST['simpan'])) {
     if ($_POST['new_id_poli'] == '999') {
-        echo'
+        echo '
             <script>alert("Poli Tidak Boleh Kosong")</script>
         ';
-        echo'meta http-equiv="refresh" content="0>';
-    }else{
+        echo 'meta http-equiv="refresh" content="0>';
+    } else {
         $query_ambil_jumlah_daftar = "SELECT COUNT(id) AS jumlah_daftar FROM daftar_poli";
         $data = mysqli_fetch_assoc(mysqli_query($mysqli, $query_ambil_jumlah_daftar));
-        $no_antrian = $data["jumlah_daftar"]+1;
-        if (isset($_SESSION['id_pasien'])){
+        $no_antrian = $data["jumlah_daftar"] + 1;
+        if (isset($_SESSION['id_pasien'])) {
             $tambah = mysqli_query($mysqli, "INSERT INTO daftar_poli (id_pasien, id_jadwal, keluhan, no_antrian) 
                                                 VALUES (
                                                     '" . $_SESSION['id_pasien'] . "',
@@ -53,13 +53,13 @@ if (isset($_POST['simpan'])) {
                         <div class="form-group mt-1">
                             <label for="inputPoli">Pilih Poli</label>
                             <div>
-                                <select class="form-select" aria-label="Default select example" name="new_id_poli" id ="inputPoli">
+                                <select class="form-select" aria-label="Default select example" name="new_id_poli" id="inputPoli">
                                     <option selected value="999">Buka untuk Pilih Poli</option>
                                     <?php
-                                        $ambilPoli = mysqli_query($mysqli, "SELECT * FROM poli");
-                                        while ($row = mysqli_fetch_array($ambilPoli)) {
-                                            echo "<option value='" . $row["id"] . "'>" . $row["nama_poli"] . "</option>";
-                                        }
+                                    $ambilPoli = mysqli_query($mysqli, "SELECT * FROM poli");
+                                    while ($row = mysqli_fetch_array($ambilPoli)) {
+                                        echo "<option value='" . $row["id"] . "'>" . $row["nama_poli"] . "</option>";
+                                    }
                                     ?>
                                 </select>
                             </div>
@@ -69,15 +69,15 @@ if (isset($_POST['simpan'])) {
                             <select class="form-select" aria-label="Disabled select example" name="new_id_jadwal" id="jadwalDokter">
                                 <option disabled selected>Dokter dan Jadwal</option>
                                 <?php
-                                    $aktif = 'Y';
-                                    $ambilDokter = mysqli_query($mysqli, "SELECT po.*, dk.*, jp.*, jp.id AS jp_id FROM poli AS po 
+                                $aktif = 'Y';
+                                $ambilDokter = mysqli_query($mysqli, "SELECT po.*, dk.*, jp.*, jp.id AS jp_id FROM poli AS po 
                                                                             JOIN dokter AS dk ON po.id = dk.id_poli
                                                                             JOIN jadwal_periksa AS jp ON dk.id = jp.id_dokter
                                                                             WHERE jp.aktif = 'Y'
                                                                             ");
-                                    while ($row = mysqli_fetch_array($ambilDokter)) {
-                                        echo "<option value='" . $row["jp_id"] . "'>" . $row["nama"] .'-'.$row["hari"].'-'.$row["nama_poli"]."</option>";
-                                    }
+                                while ($row = mysqli_fetch_array($ambilDokter)) {
+                                    echo "<option value='" . $row["jp_id"] . "'>" . $row["nama"] . '-' . $row["hari"] . '-' . $row["nama_poli"] . "</option>";
+                                }
                                 ?>
                             </select>
                         </div>
@@ -108,7 +108,7 @@ if (isset($_POST['simpan'])) {
                 </thead>
                 <!--tbody berisi isi tabel sesuai dengan judul atau head-->
                 <tbody>
-                <?php
+                    <?php
                     $result = mysqli_query($mysqli, "SELECT 
                                                         pol.nama_poli AS nama_poli,
                                                         dok.nama AS nama_dokter,
@@ -125,19 +125,19 @@ if (isset($_POST['simpan'])) {
                                                     ");
                     $no = 1;
                     while ($data = mysqli_fetch_array($result)) {
-                ?>
-                    <tr>
-                        <th scope="row"><?php echo $no++ ?></th>
-                        <td><?php echo $data['nama_poli'] ?></td>
-                        <td><?php echo $data['nama_dokter'] ?></td>
-                        <td><?php echo $data['hari'] ?></td>
-                        <td><?php echo $data['jam_mulai'] ?></td>
-                        <td><?php echo $data['jam_selesai'] ?></td>
-                        <td><?php echo $data['no_antrian'] ?></td>
-                    </tr>
-                <?php
+                    ?>
+                        <tr>
+                            <th scope="row"><?php echo $no++ ?></th>
+                            <td><?php echo $data['nama_poli'] ?></td>
+                            <td><?php echo $data['nama_dokter'] ?></td>
+                            <td><?php echo $data['hari'] ?></td>
+                            <td><?php echo $data['jam_mulai'] ?></td>
+                            <td><?php echo $data['jam_selesai'] ?></td>
+                            <td><?php echo $data['no_antrian'] ?></td>
+                        </tr>
+                    <?php
                     }
-                ?>
+                    ?>
                 </tbody>
             </table>
         </div>
@@ -153,7 +153,7 @@ if (isset($_POST['simpan'])) {
 
         // Tentukan metode, URL, dan apakah permintaan bersifat asynchronous
         xhr.open('GET', 'getDokterJadwal.php?idpoli=' + selectedPoli, true);
-        
+
         //atur header agar respon diharapkan html
         xhr.setRequestHeader('Content-Type', 'text/html');
 
