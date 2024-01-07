@@ -77,6 +77,9 @@ include_once("koneksi.php");
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="index.php?page=profilDokter">Profil Dokter</a>
+                        </li>
                 <?php
                         }
                         if ($role == "pasien"){
