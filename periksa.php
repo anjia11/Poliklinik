@@ -165,18 +165,3 @@ if (isset($_GET['aksi'])) {
             ?>
         </tbody>
     </table>
-
-<script>
-    $(document).ready(function() {
-    // Memastikan dokumen HTML sudah di-load sepenuhnya sebelum menjalankan script
-
-    // Menggunakan selector ID untuk memilih elemen dengan ID "fruitSelect"
-    $('#submit').click(function() {
-        // Menggunakan selector ID untuk memilih elemen dengan ID "fruitSelect"
-        var selectedFruits = $('#inputObat').val();
-
-        // Menampilkan nilai yang dipilih
-        alert('Buah yang dipilih: ' + selectedFruits.join(', '));
-    });
-});
-</script>
