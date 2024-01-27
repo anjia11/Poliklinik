@@ -84,7 +84,6 @@ if (isset($_POST['simpan_password'])) {
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-8">
-
             <!--Form Input Data-->
             <h4>Ubah Profil Dokter</h4>
             <form class="form row" method="POST" action="" name="myForm" onsubmit="return(validate());">
